@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-RUN apt-get update && apt-get install g++ build-essential curl -y
+RUN apt-get update && apt-get install g++ build-essential curl -y sqlite3
 RUN curl -s https://deb.nodesource.com/setup_14.x | bash
 RUN apt-get install nodejs -y
 WORKDIR /app
