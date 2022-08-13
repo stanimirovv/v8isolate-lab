@@ -4,6 +4,7 @@ import { AuthorizationError, ValidationError } from '../common/error.list';
 import logger from '../common/logger';
 import prettyFormat from '../common/prettyFormat';
 import isolateTest from '../core/isolate';
+import { initializeDb } from '../db/index';
 import addIsolateRoutes from './routes/isolate';
 import addProfileRoutes from './routes/profile';
 
@@ -28,7 +29,7 @@ app.use(
     } else if (err instanceof ValidationError) {
       res.status(422).send('Validation Error');
     } else {
-      res.status(501).send('Internal error');
+      res.status(500).send('Internal error');
     }
 
     return next();
@@ -37,6 +38,7 @@ app.use(
 
 export async function start() {
   await isolateTest();
+  await initializeDb();
   app.listen(port, () => {
     logger.info(`Listening on port ${port}`);
   });

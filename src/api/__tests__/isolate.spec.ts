@@ -83,4 +83,59 @@ describe('test root', () => {
       .set({ [config.profileHeader]: config.profileHeader });
     expect(resp.statusCode).toEqual(201);
   });
+
+  it('list isolates wrong user format', async () => {
+    const token = totp(config.testKey, { period: config.tokenTimeout });
+    const resp = await request(app)
+      .get(`/isolate/wrong_type`)
+      .set({ Authorization: `Bearer ${token}` })
+      .set({ [config.profileHeader]: config.profileHeader });
+
+    expect(resp.status).toEqual(422);
+  });
+
+  it('list isolates unexisting user', async () => {
+    const token = totp(config.testKey, { period: config.tokenTimeout });
+    const resp = await request(app)
+      .get(`/isolate/19231298`)
+      .set({ Authorization: `Bearer ${token}` })
+      .set({ [config.profileHeader]: config.profileHeader });
+
+    expect(resp.status).toEqual(422);
+  });
+
+  it('list isolates for user', async () => {
+    const token = totp(config.testKey, { period: config.tokenTimeout });
+
+    let resp = await request(app)
+      .post('/profile')
+      .send({ name: 'test_profile', key: config.testKey })
+      .set({ Authorization: `Bearer ${token}` })
+      .set({ [config.profileHeader]: config.profileHeader });
+    expect(resp.statusCode).toEqual(201);
+    const profileId = resp.body.profileId;
+
+    resp = await request(app)
+      .post('/isolate')
+      .send({
+        name: 'test_isolate',
+        description: 'descr',
+        source: '2+2',
+        profileId: resp.body.profileId,
+      })
+      .set({ Authorization: `Bearer ${token}` })
+      .set({ [config.profileHeader]: config.profileHeader });
+    expect(resp.statusCode).toEqual(201);
+
+    resp = await request(app)
+      .get(`/isolate/${profileId}`)
+      .set({ Authorization: `Bearer ${token}` })
+      .set({ [config.profileHeader]: config.profileHeader });
+
+    expect(resp.status).toEqual(200);
+    expect(resp.body.isolates.length).toEqual(1);
+    expect(resp.body.isolates).toEqual([
+      { id: 1, description: 'descr', name: 'test_isolate' },
+    ]);
+  });
 });

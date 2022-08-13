@@ -45,9 +45,25 @@ export class Isolate {
     return isolate;
   }
 
-  // TODO
-  // public static async listForUser() {
-  // }
+  public static async getForProfile(profileId: number) {
+    if (!Number.isInteger(profileId)) {
+      logger.error(`Wrong profile id: ${profileId}`);
+      throw new ValidationError();
+    }
+
+    const exists = await Profile.doesProfileExist(profileId);
+    if (!exists) {
+      logger.error(`Unexisting profile. id: ${profileId}`);
+      throw new ValidationError();
+    }
+
+    const isolates = await IsolateModel.findAll({ where: { profileId } });
+    return isolates.map(({ id, name, description }) => ({
+      id,
+      name,
+      description,
+    }));
+  }
 
   private static async validateInput(
     profileId: number,

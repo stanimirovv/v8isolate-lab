@@ -11,14 +11,12 @@ export default function addIsolateRoutes(app: express.Express) {
     '/isolate',
     async (req: express.Request, res: express.Response, next: Function) => {
       try {
-        console.log(req.header('Authorization'));
-
         const token = extractAuthTokenFromHeaders(req.headers as any);
         if (!Authorize.isAuthorized(token, config.testKey)) {
           throw new AuthorizationError();
         }
 
-        logger.info(`Run request:  ${prettyFormat(req.body)}`);
+        logger.info(`Create Isolate Request:  ${prettyFormat(req.body)}`);
         await Isolate.create(
           req.body.profileId,
           req.body.name,
@@ -33,15 +31,26 @@ export default function addIsolateRoutes(app: express.Express) {
     },
   );
 
-  // app.get('/isolate', (req, res) => {
-  //   logger.info(`Run request:  ${prettyFormat(req.body)}`);
-  //   res.send('Hello World!');
-  // });
+  app.get(
+    '/isolate/:profileId',
+    async (req: express.Request, res: express.Response, next: Function) => {
+      try {
+        const token = extractAuthTokenFromHeaders(req.headers as any);
+        if (!Authorize.isAuthorized(token, config.testKey)) {
+          throw new AuthorizationError();
+        }
 
-  // app.post('/isolate:run', (req, res) => {
-  //   logger.info(`Run request:  ${prettyFormat(req.body)}`);
-  //   res.send('Hello World!');
-  // });
+        const profileId = parseInt(req.params['profileId']);
+        logger.info(`Fetching Isolates for profile:${profileId}`);
+        const isolates = await Isolate.getForProfile(profileId);
+
+        res.status(200);
+        res.send({ isolates });
+      } catch (err: unknown) {
+        next(err);
+      }
+    },
+  );
 }
 
 const extractAuthTokenFromHeaders = (headers: Record<string, string>) => {
