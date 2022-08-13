@@ -4,7 +4,7 @@ import db from '../../db/index';
 class Profile extends Model {
   declare id: number;
   declare name: string;
-  declare token: string;
+  declare key: string;
 }
 
 Profile.init(
@@ -15,7 +15,7 @@ Profile.init(
       primaryKey: true,
     },
     name: { type: STRING, allowNull: false },
-    token: { type: STRING, allowNull: false },
+    key: { type: STRING, allowNull: false },
   },
   { sequelize: db },
 );

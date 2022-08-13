@@ -16,7 +16,7 @@ describe('test db models', () => {
     // Test full creation
     const profile = await Profile.create({
       name: 'Test',
-      token: 'Unknown',
+      key: 'Unknown',
     } as any);
     expect(profile.id).toEqual(1);
 

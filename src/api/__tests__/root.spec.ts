@@ -3,15 +3,15 @@ import { initializeDb, teardownDb } from '../../db/index';
 import app from '../server';
 
 describe('test root', () => {
-  beforeEach(() => {
-    initializeDb();
+  beforeEach(async () => {
+    await initializeDb();
   });
 
-  afterEach(() => {
-    teardownDb();
+  afterEach(async () => {
+    await teardownDb();
   });
 
-  it('test returns ok', async () => {
+  it('test root returns ok', async () => {
     const resp = await request(app).get('/');
     expect(resp.statusCode).toEqual(200);
     expect(resp.body.status).toEqual('OK');

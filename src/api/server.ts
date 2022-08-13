@@ -1,23 +1,41 @@
 import express from 'express';
+import config from '../common/config';
+import { AuthorizationError, ValidationError } from '../common/error.list';
 import logger from '../common/logger';
 import prettyFormat from '../common/prettyFormat';
 import isolateTest from '../core/isolate';
+import addIsolateRoutes from './routes/isolate';
+import addProfileRoutes from './routes/profile';
 
 const app = express();
-const port = 3000;
+app.use(express.json());
+
+const port = config.servicePort;
 app.get('/', (req, res) => {
   res.status(200);
   res.send({ message: `Operational: ${Date.now()}`, status: 'OK' });
 });
 
-app.post('/run', (req, res) => {
-  logger.info(`Run request:  ${prettyFormat(req.body)}`);
-  res.send('Hello World!');
-});
+addIsolateRoutes(app);
+addProfileRoutes(app);
+
+app.use(
+  (err: Error, req: express.Request, res: express.Response, next: Function) => {
+    logger.error(`Caught error: ${prettyFormat(err)}`);
+    if (err instanceof AuthorizationError) {
+      res.status(403).send('Authorization error');
+    } else if (err instanceof ValidationError) {
+      res.status(422).send('Validation Error');
+    } else {
+      res.status(501).send('Internal error');
+    }
+
+    return next();
+  },
+);
 
 export async function start() {
   await isolateTest();
-
   app.listen(port, () => {
     logger.info(`Listening on port ${port}`);
   });

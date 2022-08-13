@@ -3,14 +3,14 @@ import { Model } from 'sequelize';
 import db from '../index';
 import Profile from './profile';
 
-class Isolate extends Model {
+export class IsolateModel extends Model {
   declare id: number;
   declare profileId: number;
   declare name: string;
   declare description: string;
   declare source: string;
 }
-Isolate.init(
+IsolateModel.init(
   {
     id: {
       type: sequelize.INTEGER,
@@ -23,9 +23,9 @@ Isolate.init(
   },
   { sequelize: db },
 );
-Isolate.belongsTo(Profile, {
+IsolateModel.belongsTo(Profile, {
   onDelete: 'CASCADE',
   foreignKey: { name: 'profileId', allowNull: false },
 });
 
-export default Isolate;
+export default IsolateModel;

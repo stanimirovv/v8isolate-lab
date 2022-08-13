@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const db = new Sequelize('sqlite::memory:');
+const db = new Sequelize('sqlite::memory:', { logging: false });
 export default db;
 
 export const teardownDb = async () => {

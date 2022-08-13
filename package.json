@@ -21,6 +21,7 @@
     "pretty-format": "^28.1.3",
     "sequelize-typescript": "^2.1.3",
     "sqlite3": "^5.0.11",
+    "totp-generator": "^0.0.13",
     "ts-jest": "^28.0.7",
     "ts-node": "^10.9.1",
     "winston": "^3.8.1"
@@ -30,6 +31,7 @@
     "@types/jest": "^28.1.6",
     "@types/sequelize": "^4.28.14",
     "@types/supertest": "^2.0.12",
+    "@types/totp-generator": "^0.0.4",
     "@types/winston": "^2.4.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
