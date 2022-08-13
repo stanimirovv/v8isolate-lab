@@ -1,8 +1,8 @@
-import logger from 'common/logger';
-import Profile from 'db/repositories/profile';
 import ivm from 'isolated-vm';
 import { ValidationError } from '../common/error.list';
+import logger from '../common/logger';
 import { IsolateModel } from '../db/models/isolate';
+import Profile from '../db/repositories/profile';
 
 const isolateTest = async () => {
   const isolate = new ivm.Isolate({ memoryLimit: 30 });
@@ -22,24 +22,13 @@ const isolateTest = async () => {
 };
 
 export class Isolate {
-  async create(
+  public static async create(
     profileId: number,
     name: string,
     description: string,
     source: string,
   ) {
-    if (!name || !description) {
-      logger.error(
-        `Invalid name or description. name: ${name}, ${description}`,
-      );
-      throw new ValidationError();
-    }
-
-    const exists = await Profile.doesProfileExist(profileId);
-    if (!exists) {
-      logger.error(`Unexisting profile. id: ${profileId}`);
-      throw new ValidationError();
-    }
+    await Isolate.validateInput(profileId, name, description, source);
 
     logger.info(
       `Creating Isolate: profileId: ${profileId} name: ${name}, source: ${source} `,
@@ -54,6 +43,40 @@ export class Isolate {
     logger.info(`Isolate ${name} created successfully. Id: ${isolate.id}`);
 
     return isolate;
+  }
+
+  // TODO
+  // public static async listForUser() {
+  // }
+
+  private static async validateInput(
+    profileId: number,
+    name: string,
+    description: string,
+    source: string,
+  ) {
+    const exists = await Profile.doesProfileExist(profileId);
+    if (!exists) {
+      logger.error(`Unexisting profile. id: ${profileId}`);
+      throw new ValidationError();
+    }
+
+    if (!name || !description) {
+      logger.error(
+        `Invalid name or description. name: ${name}, ${description}`,
+      );
+      throw new ValidationError();
+    }
+
+    const hasIncorrectTypes =
+      !Number.isInteger(profileId) ||
+      typeof name !== 'string' ||
+      typeof description != 'string' ||
+      typeof source !== 'string';
+    if (hasIncorrectTypes) {
+      logger.error(`Wrong types in request`);
+      throw new ValidationError();
+    }
   }
 }
 

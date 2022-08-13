@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 addIsolateRoutes(app);
 addProfileRoutes(app);
 
+// Error handler
 app.use(
   (err: Error, req: express.Request, res: express.Response, next: Function) => {
     logger.error(`Caught error: ${prettyFormat(err)}`);

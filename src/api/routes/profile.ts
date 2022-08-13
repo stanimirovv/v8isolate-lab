@@ -7,21 +7,28 @@ import Authorize from '../../core/authenticate';
 import Profile from '../../db/repositories/profile';
 
 export default function addProfileRoutes(app: express.Express) {
-  app.post('/profile', async (req: express.Request, res: express.Response) => {
-    const token = extractAuthTokenFromHeaders(req.headers as any);
-    if (!Authorize.isAuthorized(token, config.testKey)) {
-      throw new AuthorizationError();
-    }
+  app.post(
+    '/profile',
+    async (req: express.Request, res: express.Response, next: Function) => {
+      try {
+        const token = extractAuthTokenFromHeaders(req.headers as any);
+        if (!Authorize.isAuthorized(token, config.testKey)) {
+          throw new AuthorizationError();
+        }
 
-    if (!req.body) {
-      throw new ValidationError();
-    }
+        if (!req.body) {
+          throw new ValidationError();
+        }
 
-    const profile = await Profile.create(req.body.name, req.body.key);
+        const profile = await Profile.create(req.body.name, req.body.key);
 
-    res.status(201);
-    res.send({ profileId: profile.id });
-  });
+        res.status(201);
+        res.send({ profileId: profile.id });
+      } catch (err: unknown) {
+        next(err);
+      }
+    },
+  );
 
   app.get('/profile', async (req, res) => {
     logger.info(`Run request:  ${prettyFormat(req.body)}`);
