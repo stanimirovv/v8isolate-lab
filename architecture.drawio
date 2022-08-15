@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="bdGLufFbmblh0Mh4JZoR" name="General">
-        <mxGraphModel dx="893" dy="383" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+        <mxGraphModel dx="893" dy="1131" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -130,17 +130,8 @@
                 <mxCell id="59" value="Isolate Runner" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="320" y="650" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="Sm8crVJ1xdBKoFlzH7P_-63" value="API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-                    <mxGeometry x="890" y="370" width="140" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="Sm8crVJ1xdBKoFlzH7P_-64" value="&lt;span style=&quot;text-align: left&quot;&gt;POST/GET/DELETE&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: left&quot;&gt;/isolate no update&lt;/span&gt;&lt;span style=&quot;text-align: left&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;POST /isolate:run&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-                    <mxGeometry x="950" y="410" width="280" height="80" as="geometry"/>
-                </mxCell>
                 <mxCell id="Sm8crVJ1xdBKoFlzH7P_-65" value="Headers" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="900" y="500" width="140" height="40" as="geometry"/>
-                </mxCell>
-                <mxCell id="Sm8crVJ1xdBKoFlzH7P_-66" value="&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;Authorization: Bearer &amp;lt;OTP&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;XProfile: &amp;lt;profileId&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-                    <mxGeometry x="970" y="540" width="280" height="80" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
@@ -150,6 +141,27 @@
             <root>
                 <mxCell id="SBt2DDi_xRYRnVNfj4ru-0"/>
                 <mxCell id="SBt2DDi_xRYRnVNfj4ru-1" parent="SBt2DDi_xRYRnVNfj4ru-0"/>
+                <mxCell id="dhkpYvgG8E9a7pVjgJ6H-0" value="Profile" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="SBt2DDi_xRYRnVNfj4ru-1">
+                    <mxGeometry x="20" y="150" width="170" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="dhkpYvgG8E9a7pVjgJ6H-1" value="+ create&#10;+ delete" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="dhkpYvgG8E9a7pVjgJ6H-0">
+                    <mxGeometry y="30" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="dhkpYvgG8E9a7pVjgJ6H-3" value="Isolate" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;" vertex="1" parent="SBt2DDi_xRYRnVNfj4ru-1">
+                    <mxGeometry x="230" y="150" width="170" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="dhkpYvgG8E9a7pVjgJ6H-4" value="+ create&#10;+ delete&#10;+ run&#10;+ list for user" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;" vertex="1" parent="dhkpYvgG8E9a7pVjgJ6H-3">
+                    <mxGeometry y="30" width="170" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="xbjlxjohklcbYhs_B_nX-0" value="API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SBt2DDi_xRYRnVNfj4ru-1">
+                    <mxGeometry x="470" y="30" width="140" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="xbjlxjohklcbYhs_B_nX-1" value="&lt;span style=&quot;text-align: left&quot;&gt;POST/GET/DELETE&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;text-align: left&quot;&gt;/isolate no update&lt;/span&gt;&lt;span style=&quot;text-align: left&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;POST /isolate:run&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SBt2DDi_xRYRnVNfj4ru-1">
+                    <mxGeometry x="530" y="70" width="280" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="xbjlxjohklcbYhs_B_nX-2" value="&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;Authorization: Bearer &amp;lt;OTP&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;span&gt;XProfile: &amp;lt;profileId&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: left&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="SBt2DDi_xRYRnVNfj4ru-1">
+                    <mxGeometry x="550" y="200" width="280" height="80" as="geometry"/>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
