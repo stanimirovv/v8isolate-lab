@@ -109,9 +109,9 @@ export class Isolate {
 
     const isolates = await this.getForProfile(profileId);
     const filteredIsolates = isolates.filter((i) => i.id === isolateId);
-    if (filteredIsolates.length === 1) {
+    if (filteredIsolates.length !== 1) {
       logger.error(
-        `Multiple isolates for profile: ${profileId} with ${isolateId} ${prettyFormat(
+        `Isolate count isn't 1 for profile: ${profileId} with ${isolateId} ${prettyFormat(
           filteredIsolates,
         )}, all: ${prettyFormat(isolates)})}`,
       );
