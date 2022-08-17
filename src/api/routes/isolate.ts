@@ -17,14 +17,14 @@ export default function addIsolateRoutes(app: express.Express) {
         }
 
         logger.info(`Create Isolate Request:  ${prettyFormat(req.body)}`);
-        await Isolate.create(
+        const isolate = await Isolate.create(
           req.body.profileId,
           req.body.name,
           req.body.description,
           req.body.source,
         );
         res.status(201);
-        res.send('Hello World!');
+        res.send({ isolateId: isolate.id });
       } catch (err: unknown) {
         next(err);
       }
@@ -46,6 +46,31 @@ export default function addIsolateRoutes(app: express.Express) {
 
         res.status(200);
         res.send({ isolates });
+      } catch (err: unknown) {
+        next(err);
+      }
+    },
+  );
+
+  app.post(
+    '/isolate/_run',
+    async (req: express.Request, res: express.Response, next: Function) => {
+      try {
+        const token = extractAuthTokenFromHeaders(req.headers as any);
+        if (!Authorize.isAuthorized(token, config.testKey)) {
+          throw new AuthorizationError();
+        }
+
+        logger.info(`Run Isolate Request: ${prettyFormat(req.body)}`);
+        const input = req.body.inputString ?? '';
+        const response = await Isolate.run(
+          req.body.profileId,
+          req.body.isolateId,
+          input,
+        );
+
+        res.status(201);
+        res.send({ response });
       } catch (err: unknown) {
         next(err);
       }

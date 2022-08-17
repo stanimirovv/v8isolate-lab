@@ -1,9 +1,17 @@
 import { ValidationError } from '../common/error.list';
 import logger from '../common/logger';
+import prettyFormat from '../common/prettyFormat';
 import { IsolateModel } from '../db/models/isolate';
 import Profile from '../db/repositories/profile';
+import runIsolate from './runIsolate';
 
-const isolateTest = async () => {};
+export interface iIsolate {
+  id: number;
+  profileId: number;
+  name: string;
+  description: string;
+  source: string;
+}
 
 export class Isolate {
   public static async create(
@@ -42,11 +50,15 @@ export class Isolate {
     }
 
     const isolates = await IsolateModel.findAll({ where: { profileId } });
-    return isolates.map(({ id, name, description }) => ({
-      id,
-      name,
-      description,
-    }));
+    return isolates.map(
+      ({ id, profileId, name, description, source }: iIsolate) => ({
+        id,
+        name,
+        description,
+        source,
+        profileId,
+      }),
+    );
   }
 
   private static async validateInput(
@@ -78,6 +90,35 @@ export class Isolate {
       throw new ValidationError();
     }
   }
-}
 
-export default isolateTest;
+  public static async run(
+    profileId: number,
+    isolateId: number,
+    inputString: string,
+  ) {
+    if (
+      !Number.isInteger(profileId) ||
+      !Number.isInteger(isolateId) ||
+      typeof inputString !== 'string'
+    ) {
+      logger.error(
+        `Invalid profileId or isolateId: ${profileId}, ${isolateId}`,
+      );
+      throw new ValidationError();
+    }
+
+    const isolates = await this.getForProfile(profileId);
+    const filteredIsolates = isolates.filter((i) => i.id === isolateId);
+    if (filteredIsolates.length === 1) {
+      logger.error(
+        `Multiple isolates for profile: ${profileId} with ${isolateId} ${prettyFormat(
+          filteredIsolates,
+        )}, all: ${prettyFormat(isolates)})}`,
+      );
+      throw new Error('Internal Error');
+    }
+
+    const isolate = filteredIsolates[0];
+    return runIsolate(isolate.id, isolate.source, inputString);
+  }
+}
