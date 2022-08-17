@@ -43,7 +43,8 @@ const runIsolate = async (
 
   // run isolate
   try {
-    return hostile.run(context, { promise: true });
+    await hostile.run(context, { promise: true });
+    return store;
   } catch (err: unknown) {
     // TODO parse different types of errors
     logger.error(

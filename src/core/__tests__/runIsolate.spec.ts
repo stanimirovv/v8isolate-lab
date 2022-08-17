@@ -47,8 +47,11 @@ describe('test isolate runner', () => {
     expect.assertions(1);
     try {
       await runIsolate(1, 'log2)', '');
-    } catch (err: unknown) {
-      expect(err instanceof ValidationError).toBeTruthy();
+    } catch (err: any) {
+      console.log('error:', err);
+      expect(
+        err.toString().indexOf('SyntaxError: Unexpected token'),
+      ).not.toEqual(-1);
     }
   });
 });
