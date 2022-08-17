@@ -2,8 +2,6 @@ import express from 'express';
 import config from '../common/config';
 import { AuthorizationError, ValidationError } from '../common/error.list';
 import logger from '../common/logger';
-import prettyFormat from '../common/prettyFormat';
-import isolateTest from '../core/isolate';
 import { initializeDb } from '../db/index';
 import addIsolateRoutes from './routes/isolate';
 import addProfileRoutes from './routes/profile';
@@ -23,7 +21,7 @@ addProfileRoutes(app);
 // Error handler
 app.use(
   (err: Error, req: express.Request, res: express.Response, next: Function) => {
-    logger.error(`Caught error: ${prettyFormat(err)}`);
+    logger.error(`Caught error: ${err.toString()}`);
     if (err instanceof AuthorizationError) {
       res.status(403).send('Authorization error');
     } else if (err instanceof ValidationError) {
@@ -37,7 +35,6 @@ app.use(
 );
 
 export async function start() {
-  await isolateTest();
   await initializeDb();
   app.listen(port, () => {
     logger.info(`Listening on port ${port}`);
