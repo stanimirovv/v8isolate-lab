@@ -21,6 +21,7 @@
     "jest": "^28.1.3",
     "prettier": "^2.7.1",
     "pretty-format": "^28.1.3",
+    "sequelize": "^6.21.4",
     "sequelize-typescript": "^2.1.3",
     "sqlite3": "^5.0.11",
     "totp-generator": "^0.0.13",
