@@ -8,6 +8,8 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=stanimirovv_v8isolate-lab&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=stanimirovv_v8isolate-lab)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=stanimirovv_v8isolate-lab&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=stanimirovv_v8isolate-lab)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=stanimirovv_v8isolate-lab&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=stanimirovv_v8isolate-lab)
+[![CodeQL](https://github.com/stanimirovv/v8isolate-lab/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/stanimirovv/v8isolate-lab/actions/workflows/codeql-analysis.yml)
+[![Node.js CI](https://github.com/stanimirovv/v8isolate-lab/actions/workflows/ci.yaml/badge.svg)](https://github.com/stanimirovv/v8isolate-lab/actions/workflows/ci.yaml)
 
 Manage and Run V8 Isolates as a service via a Restful API
 
