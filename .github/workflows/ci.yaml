@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x, 18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -23,6 +23,7 @@ jobs:
           cache: 'npm'
           UNAUTHORIZED_TOKEN: ${{ secrets.UNAUTHORIZED_TOKEN }}
           MALFORMED_TOKEN: ${{ secrets.MALFORMED_TOKEN }}
+          CUSTOM_ENVVAR: 1234
       - run: printenv
       - run: sudo apt-get install sqlite3
       - run: sudo apt-get install g++ build-essential -y
