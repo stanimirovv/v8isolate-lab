@@ -1,4 +1,5 @@
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import config from '../common/config';
 import { AuthorizationError, ValidationError } from '../common/error.list';
 import logger from '../common/logger';
@@ -6,7 +7,17 @@ import { initializeDb } from '../db/index';
 import addIsolateRoutes from './routes/isolate';
 import addProfileRoutes from './routes/profile';
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply the rate limiting middleware to all requests
+
 const app = express();
+app.use(limiter);
 app.use(express.json());
 
 const port = config.servicePort;
