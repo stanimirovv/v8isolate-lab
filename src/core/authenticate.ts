@@ -4,7 +4,7 @@ import config from '../common/config';
 export default class Authorize {
   public static isAuthorized(token: string | undefined, key: string) {
     if (!token) {
-      false;
+      return false;
     }
 
     const currentToken = totp(key, { period: config.tokenTimeout });
