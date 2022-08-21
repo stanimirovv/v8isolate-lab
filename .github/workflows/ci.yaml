@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          env:
+            UNAUTHORIZED_TOKEN: ${{ secrets.UNAUTHORIZED_TOKEN }}
+            MALFORMED_TOKEN: ${{ secrets.MALFORMED_TOKEN }}
       - run: printenv
       - run: sudo apt-get install sqlite3
       - run: sudo apt-get install g++ build-essential -y
