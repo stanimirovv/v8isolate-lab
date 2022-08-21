@@ -15,6 +15,9 @@ As of now, mostly fun and hobby project.
 
 ### Idea
 
+Create, run and manage V8 Isolates with a Restful API.
+Intended to be used in secured environment, though there is authorization via 1 time passwords
+
 ### Local setup
 
 You need to have installed sqlite and isolated-vm https://github.com/laverdet/isolated-vm

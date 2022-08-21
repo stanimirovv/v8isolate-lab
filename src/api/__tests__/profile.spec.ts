@@ -18,7 +18,7 @@ describe('test root', () => {
     const resp = await request(app)
       .post(PATH)
       .send({ name: 'test_profile', key: config.testKey })
-      .set({ Authorization: 'Bearer wrong token' })
+      .set({ Authorization: config.unauthorizedToken })
       .set({ [config.profileHeader]: config.profileHeader });
     expect(resp.statusCode).toEqual(403);
   });

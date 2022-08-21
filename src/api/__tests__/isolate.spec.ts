@@ -17,7 +17,7 @@ describe('test root', () => {
     const resp = await request(app)
       .post('/isolate')
       .send({ name: 'test_isolate', description: 'descr', source: '2+2' })
-      .set({ Authorization: 'Bearer wrong' })
+      .set({ Authorization: config.unauthorizedToken })
       .set({ [config.profileHeader]: config.profileHeader });
     expect(resp.statusCode).toEqual(403);
   });
@@ -26,7 +26,7 @@ describe('test root', () => {
     const resp = await request(app)
       .post('/isolate')
       .send({ name: 'test_isolate', description: 'descr', source: '2+2' })
-      .set({ Authorization: 'Bearer wrong token' })
+      .set({ Authorization: config.unauthorizedTokenMalformed })
       .set({ [config.profileHeader]: config.profileHeader });
     expect(resp.statusCode).toEqual(403);
   });
