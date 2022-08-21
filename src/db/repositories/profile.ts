@@ -28,6 +28,17 @@ export default class Profile {
     return profile ? true : false;
   }
 
+  public static async getKeyForProfile(id: number) {
+    if (!Number.isFinite(id)) {
+      throw new ValidationError(`Profile id be base32 encoded: ${id}`);
+    }
+    const profile = await ProfileModel.findOne({ where: { id } });
+    if (!profile) {
+      throw new ValidationError(`Unexsisting user with Id: ${id}`);
+    }
+    return profile.key;
+  }
+
   private static isBase32(input: string) {
     const regex = /^([A-Z2-7=]{8})+$/;
     return regex.test(input);
