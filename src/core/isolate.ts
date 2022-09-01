@@ -1,6 +1,7 @@
 import { ValidationError } from '../common/error.list';
 import logger from '../common/logger';
 import prettyFormat from '../common/prettyFormat';
+import ExecutedIsolate from '../db/models/executedIsolate';
 import { IsolateModel } from '../db/models/isolate';
 import Profile from '../db/repositories/profile';
 import runIsolate from './runIsolate';
@@ -119,6 +120,19 @@ export class Isolate {
     }
 
     const isolate = filteredIsolates[0];
-    return runIsolate(isolate.id, isolate.source, inputString);
+    const outputString = await runIsolate(
+      isolate.id,
+      isolate.source,
+      inputString,
+    );
+
+    const created = await ExecutedIsolate.create({
+      isolateId,
+      profileId,
+      outputString,
+      inputString,
+    });
+
+    return outputString;
   }
 }

@@ -2,6 +2,7 @@ import request from 'supertest';
 import totp from 'totp-generator';
 import config from '../../common/config';
 import { initializeDb, teardownDb } from '../../db/index';
+import ExecutedIsolate from '../../db/models/executedIsolate';
 import app from '../server';
 
 describe('test root', () => {
@@ -80,6 +81,9 @@ describe('test root', () => {
       .set({ [config.profileHeader]: config.profileHeader });
     expect(resp.statusCode).toEqual(201);
 
+    // Get executedIsolates before
+    const countBefore = await ExecutedIsolate.count();
+
     // Run isolate
     resp = await request(app)
       .post('/isolate/_run')
@@ -91,5 +95,8 @@ describe('test root', () => {
       .set({ [config.profileHeader]: config.profileHeader });
     expect(resp.statusCode).toEqual(201);
     expect(resp.body).toEqual({ response: 4 });
+
+    const countAfter = await ExecutedIsolate.count();
+    expect(countAfter).toEqual(countBefore + 1);
   });
 });
