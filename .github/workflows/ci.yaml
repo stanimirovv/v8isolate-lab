@@ -24,6 +24,7 @@ jobs:
       - run: printenv
       - run: sudo apt-get install sqlite3
       - run: sudo apt-get install g++ build-essential -y
+      - run: cd isolate-lab
       - run: npm i
       - run: npm test
         env:
