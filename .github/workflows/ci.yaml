@@ -21,6 +21,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: 'isolate-lab/package-lock.json'
       - run: printenv
       - run: sudo apt-get install sqlite3
       - run: sudo apt-get install g++ build-essential -y
