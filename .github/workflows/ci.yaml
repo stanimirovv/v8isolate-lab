@@ -24,9 +24,10 @@ jobs:
           cache-dependency-path: 'isolate-lab/package-lock.json'
       - run: printenv
       - run: ls
+      - run: cd isolate-lab 
       - run: sudo apt-get install sqlite3
       - run: sudo apt-get install g++ build-essential -y
-      - run: npm ci
+      - run: npm i
       - run: npm test
         env:
           UNAUTHORIZED_TOKEN: ${{ secrets.UNAUTHORIZED_TOKEN }}
