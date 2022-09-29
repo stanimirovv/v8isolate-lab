@@ -23,7 +23,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'isolate-lab/package-lock.json'
       - run: printenv
-      - run: cd  /home/runner/work/v8isolate-lab/isolate-lab
+      - run: ls
       - run: sudo apt-get install sqlite3
       - run: sudo apt-get install g++ build-essential -y
       - run: npm ci
