@@ -5,7 +5,7 @@ const dbConfig: TypeOrmModuleOptions = {
   database: ':memory',
   dropSchema: true,
   synchronize: true,
-  entities: [__dirname + '/../../**/*.entity.ts'],
+  entities: [__dirname + '/../../**/*.entity.{js,ts}'],
 };
 
 export default dbConfig;
